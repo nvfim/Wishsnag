@@ -1,0 +1,7 @@
+{
+  "appName": { "message": "WishSnag — Wishlist & Price Tracker", "description": "Extension name" },
+  "appDescription": { "message": "Wishlist it. Wait for it. Snag it. Save products from any store, track real prices, get drop alerts and compare offers.", "description": "Extension description (max 132 chars)" },
+  "actionTitle": { "message": "WishSnag — Snag to Wishlist", "description": "Toolbar button tooltip" },
+  "commandOpenPopup": { "message": "Open WishSnag", "description": "Keyboard shortcut description" },
+  "commandSnag": { "message": "Snag the current page to your wishlist", "description": "Keyboard shortcut description" }
+}

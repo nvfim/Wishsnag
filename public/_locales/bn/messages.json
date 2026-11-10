@@ -1,0 +1,7 @@
+{
+  "appName": { "message": "WishSnag — উইশলিস্ট ও দাম ট্র্যাকার", "description": "Extension name" },
+  "appDescription": { "message": "উইশলিস্টে রাখুন, অপেক্ষা করুন, সুযোগে কিনুন। যেকোনো স্টোরের পণ্য সেভ করুন, আসল দাম ট্র্যাক করুন, দাম কমলে জানুন।", "description": "Extension description" },
+  "actionTitle": { "message": "WishSnag — উইশলিস্টে স্ন্যাগ করুন", "description": "Toolbar button tooltip" },
+  "commandOpenPopup": { "message": "WishSnag খুলুন", "description": "Keyboard shortcut description" },
+  "commandSnag": { "message": "বর্তমান পেজটি উইশলিস্টে স্ন্যাগ করুন", "description": "Keyboard shortcut description" }
+}
