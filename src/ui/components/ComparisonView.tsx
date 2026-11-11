@@ -10,6 +10,7 @@ import { currencyOptions } from '@/core/pricing/currency';
 import { countryOptions } from '@/core/geo/countries';
 import { addDraftAsOffer, deleteOffer, setPrimaryOffer, setUserShippingQuote } from '@/db/repo';
 import { send } from '@/services/messages';
+import { describeReport, summariseOutcomes } from '@/services/checkReport';
 import { hasOriginAccess, requestOriginAccess } from '@/services/permissions';
 import { useCloudState, searchProviderOffers, type ProviderOffer } from '@/cloud/client';
 import { useApp } from '../app/AppContext';
@@ -43,9 +44,8 @@ export function ComparisonView({ item, offers, otherItems = [], compact = false 
     setRefreshing(true);
     try {
       const res = await send({ type: 'offer:refresh', offerIds: offers.filter((o) => o.url).map((o) => o.id) });
-      const ok = res.outcomes.filter((o) => o.status === 'ok').length;
-      const failed = res.outcomes.filter((o) => o.status !== 'ok' && o.status !== 'rate_limited');
-      toast.show(t('monitoring_done', { checked: res.outcomes.length, updated: ok, failed: failed.length }), { tone: failed.length && !ok ? 'error' : 'success' });
+      const { message, tone } = describeReport(summariseOutcomes(res.outcomes), t);
+      toast.show(message, { tone, duration: 8000 });
     } catch (err) {
       toast.show(t('state_error_detail', { error: err instanceof Error ? err.message : String(err) }), { tone: 'error' });
     } finally {

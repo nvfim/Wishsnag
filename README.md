@@ -62,7 +62,7 @@ Deno tests for Edge Functions: `deno test --allow-env supabase/functions/tests/`
 ## Verification status (this build)
 
 - TypeScript strict: **0 errors** · ESLint: **0 problems**
-- Unit/component tests: **140 passed** · End-to-end (real extension in Chromium): **7 passed**
+- Unit/component tests: **144 passed** · End-to-end (real extension in Chromium): **8 passed**
   (Australian, Bangladeshi-in-Bangla, cross-border, unsupported-site, import, comparison, axe accessibility)
 - Edge Functions: type-checked with Deno, **5 Deno tests passed**; RLS verified on the real migration in PostgreSQL (PGlite)
 

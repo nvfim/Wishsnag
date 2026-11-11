@@ -11,10 +11,10 @@ _Version 0.1.0 · audit date 9 November 2026_
 |---|---|
 | `tsc --noEmit` (strict, `noUncheckedIndexedAccess`) | ✅ 0 errors |
 | ESLint (typescript-eslint + react-hooks) | ✅ 0 problems |
-| Vitest unit + component tests | ✅ **140 passed** (9 files) |
-| Playwright end-to-end, real unpacked extension in Chromium | ✅ **7 passed** (6 scenarios + axe accessibility scan); 1 opt-in screenshot spec |
+| Vitest unit + component tests | ✅ **144 passed** (10 files) |
+| Playwright end-to-end, real unpacked extension in Chromium | ✅ **8 passed** (7 scenarios + axe accessibility scan); 1 opt-in screenshot spec |
 | Deno: Edge Functions type-check + helper tests | ✅ 3 functions checked, **5 tests passed** |
-| RLS: real migration in PostgreSQL (PGlite) | ✅ 11 tests (inside the 140) |
+| RLS: real migration in PostgreSQL (PGlite) | ✅ 11 tests (inside the 144) |
 | Production build + Web Store zip | ✅ `release/wishsnag-0.1.0.zip` (~0.9 MB) |
 
 **Environment limitation:** this build machine had **no network access to retailer websites,

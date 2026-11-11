@@ -9,6 +9,7 @@ import { isFxStale } from '@/core/pricing/exchangeRates';
 import { deleteAllData, exportAll } from '@/db/repo';
 import { kv } from '@/platform/storage';
 import { send } from '@/services/messages';
+import { describeReport, summariseOutcomes } from '@/services/checkReport';
 import { listGrantedOrigins, removeOriginAccess, siteLabel } from '@/services/permissions';
 import { deleteCloudAccount, sendOtp, signOut, useCloudState, verifyOtp } from '@/cloud/client';
 import { lastSyncAt, syncNow } from '@/cloud/sync';
@@ -238,7 +239,8 @@ function MonitoringSettings() {
             setRunning(true);
             try {
               const r = await send({ type: 'monitor:run' });
-              toast.show(t('monitoring_done', { checked: r.summary.checked, updated: r.summary.updated, failed: r.summary.failed }));
+              const { message, tone } = describeReport(summariseOutcomes(r.summary.outcomes), t);
+              toast.show(message, { tone, duration: 8000 });
             } catch (err) {
               toast.show(t('state_error_detail', { error: String(err) }), { tone: 'error' });
             } finally {

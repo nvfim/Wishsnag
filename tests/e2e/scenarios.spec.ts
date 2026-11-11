@@ -143,3 +143,30 @@ test('Scenario C — onboarding with cross-border delivery, collections, and dat
   await expect(again.getByText(/BDT\s4,500/).first()).toBeVisible();
   await context.close();
 });
+
+test('Check now explains skipped stores instead of "0 · 0 · 0"', async ({ ext }) => {
+  await ext.setSettings(AU_SETTINGS);
+  const dash = await ext.context.newPage();
+  await dash.goto(ext.page('dashboard.html#/settings'));
+  await dash.getByRole('button', { name: 'Check now' }).click();
+  await expect(dash.getByText(/Nothing to check yet/)).toBeVisible();
+
+  // A saved listing on a store WishSnag has no permission for, with checks switched on.
+  await dash.goto(ext.page('dashboard.html#/add'));
+  await dash.getByLabel('Product name').fill('Galaxy S25 256GB');
+  await dash.getByLabel(/^Price/).fill('1399');
+  // The Add page opens with “More details” already expanded.
+  await dash.getByLabel('Product link').fill('https://shop.not-allowed.example/galaxy-s25');
+  await dash.getByRole('button', SNAG).click();
+  await expect(dash.getByText('Snagged! Added to your wishlist.')).toBeVisible();
+  await ext.sw.evaluate(async () => {
+    const { db } = (globalThis as unknown as { wishsnag: { db: () => { offers: { toCollection: () => { modify: (f: (o: { check: { enabled: boolean; nextCheckAt: number | null } }) => void) => Promise<number> } } } } }).wishsnag;
+    await db().offers.toCollection().modify((o) => {
+      o.check.enabled = true;
+      o.check.nextCheckAt = Date.now();
+    });
+  });
+  await dash.goto(ext.page('dashboard.html#/settings'));
+  await dash.getByRole('button', { name: 'Check now' }).click();
+  await expect(dash.getByText(/1 listing was skipped because WishSnag needs your permission for that store/)).toBeVisible();
+});
